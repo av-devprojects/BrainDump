@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character set and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainDump - Notes</title>
+
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="notes.css">
+    
+    <!-- Google Material Symbols (icons) -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- Container where the sidebar (navbar.html) will be loaded -->
+    <div id="sidebar-container">
+        <script>
+            // Load sidebar HTML and script dynamically
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(html => {
+                    const container = document.getElementById('sidebar-container');
+                    container.innerHTML = html;
+
+                    // Collapse sidebar by default
+                    const sidebar = container.querySelector('.sidebar');
+                    sidebar.classList.add('collapsed');
+
+                    // Append navbar.js dynamically after loading HTML
+                    const script = document.createElement("script");
+                    script.src = "navbar.js";
+                    document.body.appendChild(script);
+                });
+        </script>
+    </div>
+
+    <!-- Main content container -->
+    <div class="container">
+
+        <!-- Header section -->
+        <header class="header">
+            <h1>Notes</h1>
+            <p>Dump all your notes. Save your brain storage.</p>
+        </header>
+
+        <!-- Controls: search bar, filter dropdown, and add note button -->
+        <div class="controls">
+            <div class="controls-container">
+                <!-- Input for searching notes -->
+                <input 
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search notes..."
+                    class="search-input">
+            </div>
+
+            <!-- Button to trigger the note modal -->
+            <button id="addNoteBtn" class="add-btn">New Note</button>
+        </div>
+
+        <!-- Where all notes will be dynamically inserted -->
+        <div id="notesContainer" class="notes-grid">
+            <!-- Notes will be created dynamically via JavaScript -->
+        </div>
+
+        <!-- Shown when no notes exist -->
+        <div id="emptyState" class="empty-state">
+            <span class="material-symbols-rounded">note</span>
+            <h3>No Notes</h3>
+            <p>Add your first note by clicking "New Note"</p>
+        </div>
+
+        <!-- Modal for creating/editing a note -->
+        <div id="addNoteModal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">New Note</h3>
+                    <!-- Button to close the modal -->
+                    <button id="closeModalBtn" class="modal-close">
+                        <span class="material-symbols-rounded">close</span>
+                    </button>
+                </div>
+
+                <!-- Note form -->
+                <form id="noteForm" class="modal-body">
+                    <div class="form-group">
+                        <!-- Title input -->
+                        <label for="noteTitle" class="form-label">Title</label>
+                        <input type="text" id="noteTitle" class="form-input" required>
+
+                        <!-- Content input -->
+                        <label for="noteContent" class="form-label">Content</label>
+                        <textarea
+                            id="noteContent"
+                            class="form-input form-textarea"
+                            required>
+                        </textarea>
+                    </div>
+
+                    <!-- Color palette for selecting note color -->
+                    <div class="color-palette">
+                        <label>Select a color:</label>
+                        <div class="colors">
+                            <!-- Each div represents a selectable color option -->
+                            <div class="color-option" data-color="#afc8e1" style="background-color:#afc8e1;"></div>
+                            <div class="color-option" data-color="#7c9fc2" style="background-color:#7c9fc2;"></div>
+                            <div class="color-option" data-color="#537494" style="background-color:#537494;"></div>
+
+                            <div class="color-option" data-color="#b1c688" style="background-color:#b1c688;"></div>
+                            <div class="color-option" data-color="#8a9f5f" style="background-color:#8a9f5f;"></div>
+                            <div class="color-option" data-color="#687d3e" style="background-color:#687d3e;"></div>
+
+                            <div class="color-option" data-color="#d9c17a" style="background-color:#d9c17a;"></div>
+                            <div class="color-option" data-color="#e6b82e" style="background-color:#e6b82e;"></div>
+                            <div class="color-option" data-color="#97750f" style="background-color:#97750f;"></div>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="submit-btn">Save Note</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal for confirming deletion of a note -->
+        <div id="confirmModal" class="modal-overlay">
+            <div class="modal confirmation-modal">
+                <div class="modal-body">
+                    <p>Do you want to delete this note?</p>
+                    <div class="confirmation-buttons">
+                        <!-- Cancel and confirm buttons -->
+                        <button id="cancelDeleteBtn" class="confirmation-btn cancel-btn">Cancel</button>
+                        <button id="confirmDeleteBtn" class="confirmation-btn confirm-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to JavaScript logic -->
+    <script type="module" src="notes.js"></script>
+    <!-- Adds Sortbale JS to manage the grid -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</body>
+</html>

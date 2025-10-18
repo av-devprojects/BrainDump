@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainDump - Budget</title>
+    <link rel="stylesheet" href="budget.css">
+</head>
+<body>
+
+
+    <div id="sidebar-container">
+        <script>
+            fetch('navbar.html')
+            .then(response => response.text())
+            .then(html => {
+                const container = document.getElementById('sidebar-container');
+                container.innerHTML = html;
+
+                // Wait a tick so DOM is updated, then collapse the sidebar
+                const sidebar = container.querySelector('.sidebar');
+                sidebar.classList.add('collapsed');
+
+                // Load sidebar behavior script
+                const script = document.createElement("script");
+                script.src = "navbar.js";
+                document.body.appendChild(script);
+            });
+        </script>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1>Budget</h1>
+            <p>Track your expenses here. Avoid the mental budget notes.</p>
+        </header>
+    </div>
+    
+</body>
+</html>
